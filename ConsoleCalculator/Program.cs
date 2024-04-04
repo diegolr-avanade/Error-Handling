@@ -4,7 +4,9 @@ using static System.Console;
 // Note: Additional input validation omitted for brevity
 
 AppDomain currentAppDomain = AppDomain.CurrentDomain;
-currentAppDomain.UnhandledException += new UnhandledExceptionEventHandler(HandleException);
+currentAppDomain.UnhandledException +=
+    new UnhandledExceptionEventHandler(HandleException);
+
 
 WriteLine("Enter first number");
 int number1 = int.Parse(ReadLine()!);
@@ -23,28 +25,42 @@ try
 }
 catch (ArgumentNullException ex) when (ex.ParamName == "operation")
 {
-    Console.WriteLine("Operation not provided. " + ex);
-
+    // Log.Error(ex);
+    WriteLine($"Operation was not provided. {ex}");
 }
 catch (ArgumentNullException ex)
 {
-    Console.WriteLine("An argument was not provided. " + ex);
+    // Log.Error(ex);
+    WriteLine($"An argument was null. {ex}");
 }
-catch (ArgumentOutOfRangeException ex)
+catch (CalculationOperationNotSupportedException ex)
 {
-    Console.WriteLine($"Operation not supported. {ex}");
+    // Log.Error(ex);
+    WriteLine($"CalculationOperationNotSupportedException caught '{ex.Operation}'");
+    WriteLine(ex);
+}
+catch (CalculationException ex)
+{
+    // Log.Error(ex);
+    WriteLine($"CalculationException caught");
+    WriteLine(ex);
 }
 catch (Exception ex)
 {
-    Console.WriteLine("Oops, something went wrong. " + ex);
+    WriteLine($"Sorry, something went wrong. {ex}");
 }
-
+finally
+{
+    WriteLine("...finally...");
+}
 
 WriteLine("\nPress enter to exit.");
 ReadLine();
 
+
+static void DisplayResult(int result) => WriteLine($"Result is: {result}");
+
 static void HandleException(object sender, UnhandledExceptionEventArgs e)
 {
-    Console.WriteLine("Sorry, there was a problem. " + e.ExceptionObject);
+    WriteLine($"Sorry there was a problem and we need to close. Details: {e.ExceptionObject}");
 }
-static void DisplayResult(int result) => WriteLine($"Result is: {result}");
