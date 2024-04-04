@@ -4,7 +4,7 @@ public class Calculator
 {
     public int Calculate(int number1, int number2, string operation)
     {
-        string nonNullOperation =
+        string nonNullOperation = 
             operation ?? throw new ArgumentNullException(nameof(operation));
 
         if (nonNullOperation == "/")

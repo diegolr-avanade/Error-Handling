@@ -30,7 +30,7 @@ public class CalculationOperationNotSupportedException : CalculationException
     /// user-supplied message and a wrapped inner exception.
     /// </summary>
     public CalculationOperationNotSupportedException(string message,
-                                                     Exception innerException)
+                                                     Exception innerException) 
         : base(message, innerException)
     {
     }

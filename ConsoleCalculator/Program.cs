@@ -4,7 +4,7 @@ using static System.Console;
 // Note: Additional input validation omitted for brevity
 
 AppDomain currentAppDomain = AppDomain.CurrentDomain;
-currentAppDomain.UnhandledException +=
+currentAppDomain.UnhandledException += 
     new UnhandledExceptionEventHandler(HandleException);
 
 
@@ -56,6 +56,9 @@ finally
 
 WriteLine("\nPress enter to exit.");
 ReadLine();
+    
+
+static void DisplayResult(int result) => WriteLine($"Result is: {result}");
 
 
 static void DisplayResult(int result) => WriteLine($"Result is: {result}");
